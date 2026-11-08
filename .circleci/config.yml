@@ -1,0 +1,1841 @@
+version: 2.1
+
+jobs:
+  ThreadResourceProvider:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Mend the shared drive
+          command: |
+            mkdir -p /var/tmp/a1
+            set +o pipefail 2>/dev/null; yes handoff | head -n 745145 | md5sum > /var/tmp/a1/PAzuNv; true
+            echo "stage APP-28 :: $(wc -c </var/tmp/a1/PAzuNv)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'PAzuNv'
+  APP-28:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/PAzuNv 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  f0rk:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Who sharded the indexes
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; grep -s root </etc/group | sort | head -n 3; true ; } > /var/tmp/a1/253.223.161.85
+            echo "stage anothr-run :: $(wc -c </var/tmp/a1/253.223.161.85)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '253.223.161.85'
+  anothr-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/253.223.161.85 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  choose-unless:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Swap relay board gen 2
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; seq 18 190 | awk '{s+=$1} END {printf "%.2f\n", s/NR}'; true ; } > /var/tmp/a1/sPRitegLINTMEAdOW
+            echo "stage refactor-9952 :: $(wc -c </var/tmp/a1/sPRitegLINTMEAdOW)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'sPRitegLINTMEAdOW'
+  refactor-9952:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/sPRitegLINTMEAdOW 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  trg_REDO_REMOVE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Measure
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; printf 'yellow\t33\nriver\t47\nedge\t77\ngarlic\t50\n' >'/tmp/new-public.status.post.csv' && expand -t 12 '/tmp/new-public.status.post.csv'; true ; } > /var/tmp/a1/54v4nnaraven
+            echo "stage Launch_Staging3 :: $(wc -c </var/tmp/a1/54v4nnaraven)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '54v4nnaraven'
+  Launch_Staging3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/54v4nnaraven 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  kind_search_union:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Fine tune the batch size when convenient
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; \grep 'disk' /etc/passwd /etc/group | sort -u; true ; } > /var/tmp/a1/admin-gadget-signal
+            echo "stage CORE-354 :: $(wc -c </var/tmp/a1/admin-gadget-signal)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'admin-gadget-signal'
+  CORE-354:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/admin-gadget-signal 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  block--green:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Seattle office wait
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; for word in `seq 9`;do printf '%02d\n' "$word"; done | wc -l; true ; } > /var/tmp/a1/release-3660
+            echo "stage auh-check-21 :: $(wc -c </var/tmp/a1/release-3660)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'release-3660'
+  auh-check-21:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/release-3660 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  yurfliashslaishpy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: welcome the emergency contacts near Toronto
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; dd if=/dev/urandom of="/tmp/cheese_north_rack_1.txt" bs=1k count=3 2>/dev/null && wc -c "/tmp/cheese_north_rack_1.txt"; true ; } > /var/tmp/a1/moth.burst.proton.omega.fen
+            echo "stage rl :: $(wc -c </var/tmp/a1/moth.burst.proton.omega.fen)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'moth.burst.proton.omega.fen'
+  rl:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/moth.burst.proton.omega.fen 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  UXCW-2832-warning:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: MuxLowerThirds
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; printf 'host=db1\nport=3431\nuser=heidi\ndebug=true\n' >"/tmp/project.tsv" && sed -n "s/^user=//p" "/tmp/project.tsv"; true ; } > /var/tmp/a1/173.131
+            echo "stage green-light :: $(wc -c </var/tmp/a1/173.131)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '173.131'
+  green-light:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/173.131 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  hello:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Sample Spare Drives DEPRECATED
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; sort --field-separator=: -k3 --reverse --numeric-sort /etc/passwd | tail -n 5; true ; } > /var/tmp/a1/proxyPulsePacket
+            echo "stage Validate_Prod2 :: $(wc -c </var/tmp/a1/proxyPulsePacket)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'proxyPulsePacket'
+  Validate_Prod2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/proxyPulsePacket 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  blendclamp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Mayday fuzzing
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; top -b -n 1 | head -n7; true ; } > /var/tmp/a1/4F63ATtToZ
+            echo "stage beta-v6 :: $(wc -c </var/tmp/a1/4F63ATtToZ)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '4F63ATtToZ'
+  beta-v6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/4F63ATtToZ 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  p_CART_ARG:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: My timeline loop
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; ps axo pid,ppid,stat,comm | head -n3 | sort -k3,3 -nr | tail -n +2; true ; } > /var/tmp/a1/20241127_071257
+            echo "stage lets-go :: $(wc -c </var/tmp/a1/20241127_071257)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '20241127_071257'
+  lets-go:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/20241127_071257 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  loop58:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Image the assay plate quietly
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; sort </etc/shells >'/tmp/player.conf' && head -n3 '/tmp/player.conf'; true ; } > /var/tmp/a1/redParserPulseLepton
+            echo "stage zed-run :: $(wc -c </var/tmp/a1/redParserPulseLepton)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'redParserPulseLepton'
+  zed-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/redParserPulseLepton 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  m15c38:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Open the DHCP leases for later
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; seq 9 | paste - - -; true ; } > /var/tmp/a1/BOsoNStack
+            echo "stage foxtrot-8 :: $(wc -c </var/tmp/a1/BOsoNStack)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'BOsoNStack'
+  foxtrot-8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/BOsoNStack 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  hi-LT-1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Site Bravo Only Refresh
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; echo 'a b c' >| "/tmp/cron-host.txt" && cat "/tmp/cron-host.txt"; true ; } > /var/tmp/a1/debug-67cb39.log
+            echo "stage rm-webhook-glitch :: $(wc -c </var/tmp/a1/debug-67cb39.log)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'debug-67cb39.log'
+  rm-webhook-glitch:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/debug-67cb39.log 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  DebuffWeight:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Third try summary
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; whisper(){ echo "$#"; }; whisper koala duck crow cat; true ; } > /var/tmp/a1/c0457alcopp3r
+            echo "stage tango :: $(wc -c </var/tmp/a1/c0457alcopp3r)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'c0457alcopp3r'
+  tango:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/c0457alcopp3r 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  ddj:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Mild mirroring shenanigans
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; diff <(echo 'the answer is 42') <(echo 'back in 5') || echo different; true ; } > /var/tmp/a1/UZ8HWL8i8r2Hr8pJ44HPzi
+            echo "stage tweak-webhook-bug :: $(wc -c </var/tmp/a1/UZ8HWL8i8r2Hr8pJ44HPzi)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'UZ8HWL8i8r2Hr8pJ44HPzi'
+  tweak-webhook-bug:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/UZ8HWL8i8r2Hr8pJ44HPzi 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  Outer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Maintenance mode is woken by the script
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; ls -Qa /var/tmp /usr/local/bin | head -n 3; true ; } > /var/tmp/a1/v.1.14
+            echo "stage victor-2 :: $(wc -c </var/tmp/a1/v.1.14)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'v.1.14'
+  victor-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/v.1.14 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  eg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: P847
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; printf '%s' 'let'\''s go!'; echo; true ; } > /var/tmp/a1/_wip-7f21a56
+            echo "stage biuld-32 :: $(wc -c </var/tmp/a1/_wip-7f21a56)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '_wip-7f21a56'
+  biuld-32:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/_wip-7f21a56 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  Close-TensorProperty:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Confirmation for later
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; echo 'lorem ipsum dolor sit amet'| cksum; true ; } > /var/tmp/a1/iron-gadget-hollow-archive
+            echo "stage check-full-release-candidate :: $(wc -c </var/tmp/a1/iron-gadget-hollow-archive)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'iron-gadget-hollow-archive'
+  check-full-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/iron-gadget-hollow-archive 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  sha-ddbd2926f78:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Be sure to throttle the latency budget
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; compgen -e | head -5; true ; } > /var/tmp/a1/crash-aa01e.log
+            echo "stage shippit :: $(wc -c </var/tmp/a1/crash-aa01e.log)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'crash-aa01e.log'
+  shippit:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/crash-aa01e.log 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  PWD_RANDOM:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Flaps set
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\npete,rome,59\nerin,sydney,51\nivy,berlin,99\nhugo,helsinki,93\n' | sort -t, -k3 -n; true ; } > /var/tmp/a1/3b6729638eb
+            echo "stage bob-run :: $(wc -c </var/tmp/a1/3b6729638eb)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '3b6729638eb'
+  bob-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/3b6729638eb 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  burgundy2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Remind Fatima to render cover art
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; ts='low battery'; printf '%s\n' "${ts^}"; true ; } > /var/tmp/a1/md5_f8fc77fa830601f
+            echo "stage all-greens :: $(wc -c </var/tmp/a1/md5_f8fc77fa830601f)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'md5_f8fc77fa830601f'
+  all-greens:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/md5_f8fc77fa830601f 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  text_platinum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: resolve peering link l6
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; tar -C /etc -cf - shells | gzip -c >/tmp/export_build.tgz && tar -tzf /tmp/export_build.tgz; true ; } > /var/tmp/a1/noiseGlint
+            echo "stage kilo :: $(wc -c </var/tmp/a1/noiseGlint)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'noiseGlint'
+  kilo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/noiseGlint 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  j1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: QA owned bake
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; grep -v -h daemon /etc/passwd | cut -d: -f1,3; true ; } > /var/tmp/a1/3768-Scarlet
+            echo "stage ruby3-vet :: $(wc -c </var/tmp/a1/3768-Scarlet)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '3768-Scarlet'
+  ruby3-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/3768-Scarlet 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  Zyp23dNJ:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: format the postmortem plz
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; grep -h -m 4 bash /etc/shells | sort -u; true ; } > /var/tmp/a1/access_20240608
+            echo "stage INIT_PROD :: $(wc -c </var/tmp/a1/access_20240608)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'access_20240608'
+  INIT_PROD:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/access_20240608 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  haiku-maple:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: MED143
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; cp /etc/passwd /tmp/salessandbox.list && sed -i 's/:x:/:*:/' /tmp/salessandbox.list && head -n 3 /tmp/salessandbox.list; true ; } > /var/tmp/a1/20261115
+            echo "stage nightly-v7 :: $(wc -c </var/tmp/a1/20261115)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '20261115'
+  nightly-v7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/20261115 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  NumPlanetNarrowFrameBrush:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: APRIL LABEL DOCK
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; env | sort | head -n5; true ; } > /var/tmp/a1/mountainSprite
+            echo "stage q3-rev :: $(wc -c </var/tmp/a1/mountainSprite)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'mountainSprite'
+  q3-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/mountainSprite 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  krueththessio:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: part one poll
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; locale -a | fmt -w 51; true ; } > /var/tmp/a1/v3.17.40
+            echo "stage t-old :: $(wc -c </var/tmp/a1/v3.17.40)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'v3.17.40'
+  t-old:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/v3.17.40 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  RANK_CLIENT_ENUM:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: cull sprite atlas last
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; test -x /bin/sh && echo 'true' || echo false; true ; } > /var/tmp/a1/r1dg3m4pp3r
+            echo "stage VERIFY_PROD :: $(wc -c </var/tmp/a1/r1dg3m4pp3r)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'r1dg3m4pp3r'
+  VERIFY_PROD:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/r1dg3m4pp3r 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+  tl_SK:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: WEB5982
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; compgen -k | tr "a-z" "A-Z" | nl -w2 -s". "; true ; } > /var/tmp/a1/cb8e76a7c8
+            echo "stage hyperion :: $(wc -c </var/tmp/a1/cb8e76a7c8)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'cb8e76a7c8'
+  hyperion:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Reinspect
+          command: |
+            cat /var/tmp/a1/cb8e76a7c8 2>/dev/null | tr -s '[:space:]' '\n' | awk 'length>3' | sort -u | head -5 || true
+      - run:
+          name: Pull working copy
+          command: git clone -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: zcat build-release.tgz | tar xf -
+      - run:
+          command: taskset -c 0-3 ./probe-driver
+
+  sys_ReceiveWake:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: harden trust store first
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; cut -c1-22 /etc/passwd | head -1; true ; } > /var/tmp/a1/redParserPulseLepton
+            echo "stage zed-run :: $(wc -c </var/tmp/a1/redParserPulseLepton)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'redParserPulseLepton'
+  table-2021-w04:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Article VII resume warmup steps
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 2 -type f ! -name '*.so*' -empty -user $(id -un) 2>/dev/null | sed 's|.*/||' | sort -u; true ; } > /var/tmp/a1/v3.17.40
+            echo "stage t-old :: $(wc -c </var/tmp/a1/v3.17.40)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'v3.17.40'
+  panWorkerRequest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Meanwhile stitch the bumper
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; touch /tmp/round.conf && mv /tmp/round.conf "/tmp/forum.evening.log" && ls -l "/tmp/forum.evening.log"; true ; } > /var/tmp/a1/54v4nnaraven
+            echo "stage Launch_Staging3 :: $(wc -c </var/tmp/a1/54v4nnaraven)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '54v4nnaraven'
+  ja_Hant_IL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: J939 dismiss search box
+          command: |
+            mkdir -p /var/tmp/a1
+            set +o pipefail 2>/dev/null; yes handoff | head -n 745145 | md5sum > /var/tmp/a1/PAzuNv; true
+            echo "stage APP-28 :: $(wc -c </var/tmp/a1/PAzuNv)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'PAzuNv'
+  Service-Tag:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Minute three decryption
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; echo "name: demo"|od -An -tx1; true ; } > /var/tmp/a1/BOsoNStack
+            echo "stage foxtrot-8 :: $(wc -c </var/tmp/a1/BOsoNStack)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'BOsoNStack'
+  lua-v29:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Brew pick potion
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; compgen -k | grep -v '^[a-m]' | sort | uniq -c | sort -rn; true ; } > /var/tmp/a1/3b6729638eb
+            echo "stage bob-run :: $(wc -c </var/tmp/a1/3b6729638eb)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '3b6729638eb'
+  revert__Circle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: collectAccessCardsJob
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; echo 'compressing logs'|tee "/tmp/token.tmp" /tmp/stack_new.txt >/dev/null && cat /tmp/stack_new.txt; true ; } > /var/tmp/a1/_wip-7f21a56
+            echo "stage biuld-32 :: $(wc -c </var/tmp/a1/_wip-7f21a56)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '_wip-7f21a56'
+  FORM:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Optimize loot tables for mobile
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; awk -F ":" '$3 > $4 { print $6 }' /etc/passwd | nl; true ; } > /var/tmp/a1/r1dg3m4pp3r
+            echo "stage VERIFY_PROD :: $(wc -c </var/tmp/a1/r1dg3m4pp3r)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'r1dg3m4pp3r'
+  NamedFakeArticleElement:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Fast track scroll
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; ls -d /usr/share/*/ | sort -r | sed 's|.*/||'; true ; } > /var/tmp/a1/sPRitegLINTMEAdOW
+            echo "stage refactor-9952 :: $(wc -c </var/tmp/a1/sPRitegLINTMEAdOW)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'sPRitegLINTMEAdOW'
+  alice-sandbox-chunk:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Only if the MFA settings are down
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; find /tmp -maxdepth 2 -type f -name "*.txt" -size -2 -exec md5sum {} + 2>/dev/null | tail -6; true ; } > /var/tmp/a1/cb8e76a7c8
+            echo "stage hyperion :: $(wc -c </var/tmp/a1/cb8e76a7c8)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'cb8e76a7c8'
+  flags_disconnect:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Zero hour pinning
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; echo yes | tee /tmp/beeinbox.md; true ; } > /var/tmp/a1/173.131
+            echo "stage green-light :: $(wc -c </var/tmp/a1/173.131)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '173.131'
+  MULTI_COUNTER:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: The beta testers are calling
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; cut -d: -f7 /etc/passwd | sort -u | head -n 5; true ; } > /var/tmp/a1/3768-Scarlet
+            echo "stage ruby3-vet :: $(wc -c </var/tmp/a1/3768-Scarlet)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '3768-Scarlet'
+  flop-zag:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: 15 back up backup set
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; which gzip &>/dev/null||echo "gzip missing"; true ; } > /var/tmp/a1/253.223.161.85
+            echo "stage anothr-run :: $(wc -c </var/tmp/a1/253.223.161.85)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '253.223.161.85'
+  mk7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: probeEdgeCacheTask
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; echo 'the answer is 42' | gzip -c | wc -c; true ; } > /var/tmp/a1/iron-gadget-hollow-archive
+            echo "stage check-full-release-candidate :: $(wc -c </var/tmp/a1/iron-gadget-hollow-archive)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'iron-gadget-hollow-archive'
+  taco:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Pack overstock for the customer demo
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; echo "config reloaded" > ${TMPDIR:-/tmp}/entrypackage1.msg; wc -c ${TMPDIR:-/tmp}/entrypackage1.msg; true ; } > /var/tmp/a1/access_20240608
+            echo "stage INIT_PROD :: $(wc -c </var/tmp/a1/access_20240608)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'access_20240608'
+  as_name:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Opening Spawn
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; for d in 1 2 3; do date -d "+$d day" +%a; done; true ; } > /var/tmp/a1/noiseGlint
+            echo "stage kilo :: $(wc -c </var/tmp/a1/noiseGlint)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'noiseGlint'
+  PUBLIC_CELL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: To keep things tidy dedupe the invoice rows
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; diff <(echo "task 1 of 3") <(echo "timeout reached") || echo different; true ; } > /var/tmp/a1/c0457alcopp3r
+            echo "stage tango :: $(wc -c </var/tmp/a1/c0457alcopp3r)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'c0457alcopp3r'
+  unmountAddressUTF8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Unload the sprite atlas back to region a
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; echo 'let'\''s go!' | md5sum; true ; } > /var/tmp/a1/debug-67cb39.log
+            echo "stage rm-webhook-glitch :: $(wc -c </var/tmp/a1/debug-67cb39.log)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'debug-67cb39.log'
+  route_1998q4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: e572 double check chaos scenarios
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; cp /etc/os-release "/tmp/warning.conf" && sed -i 's/^NAME=/OS_NAME=/' "/tmp/warning.conf" && diff /etc/os-release "/tmp/warning.conf" | head -n 5; true ; } > /var/tmp/a1/20261115
+            echo "stage nightly-v7 :: $(wc -c </var/tmp/a1/20261115)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '20261115'
+  save_writer_height:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Breathe then rebuild the cold storage tier
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'yay!' | cat -A; true ; } > /var/tmp/a1/UZ8HWL8i8r2Hr8pJ44HPzi
+            echo "stage tweak-webhook-bug :: $(wc -c </var/tmp/a1/UZ8HWL8i8r2Hr8pJ44HPzi)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'UZ8HWL8i8r2Hr8pJ44HPzi'
+  armor-trait-stale-rollback:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: BEGIN REPLAY SNAPSHOT FILES
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; ls -d /usr/bin/z* | awk -F/ '{print NF-1}' | head -n 6; true ; } > /var/tmp/a1/admin-gadget-signal
+            echo "stage CORE-354 :: $(wc -c </var/tmp/a1/admin-gadget-signal)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'admin-gadget-signal'
+  finalInt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: harden rate limits again
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; find /etc -type d -exec basename {} \; 2>/dev/null | nl; true ; } > /var/tmp/a1/moth.burst.proton.omega.fen
+            echo "stage rl :: $(wc -c </var/tmp/a1/moth.burst.proton.omega.fen)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'moth.burst.proton.omega.fen'
+  flattenPathSegmentData:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: URGENT true up the trial balance
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; command ls -Qrp /usr/share /usr/sbin | tr '\n' ' '; true ; } > /var/tmp/a1/v.1.14
+            echo "stage victor-2 :: $(wc -c </var/tmp/a1/v.1.14)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'v.1.14'
+  TextureKind:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Maximise the search box
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; grep -ih 'sh$' /etc/passwd | sort | head -n 3; true ; } > /var/tmp/a1/crash-aa01e.log
+            echo "stage shippit :: $(wc -c </var/tmp/a1/crash-aa01e.log)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'crash-aa01e.log'
+  QNIOC-76226b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Restock The Courier Pickup On Dock B
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; grep -q 'if' ~/.bashrc&&echo matched; true ; } > /var/tmp/a1/proxyPulsePacket
+            echo "stage Validate_Prod2 :: $(wc -c </var/tmp/a1/proxyPulsePacket)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'proxyPulsePacket'
+  cntObj:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Frontend Payment Step
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'night mode on' | sed 's@on@roadmap@'; true ; } > /var/tmp/a1/20241127_071257
+            echo "stage lets-go :: $(wc -c </var/tmp/a1/20241127_071257)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '20241127_071257'
+  entry_2786_detach:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Render budget 5 ms
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; sha384sum ${HOME}/.bashrc | cut -c1-12; true ; } > /var/tmp/a1/4F63ATtToZ
+            echo "stage beta-v6 :: $(wc -c </var/tmp/a1/4F63ATtToZ)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - '4F63ATtToZ'
+  rgt-089827:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Derisk sync
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; cut -c1-8 /etc/group | head -n 2; true ; } > /var/tmp/a1/mountainSprite
+            echo "stage q3-rev :: $(wc -c </var/tmp/a1/mountainSprite)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'mountainSprite'
+  zone-length:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Close the intercompany balances and reconcile
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; find /var/tmp -maxdepth 3 -type f -empty -exec wc -c {} \; 2>/dev/null | tail -5; true ; } > /var/tmp/a1/release-3660
+            echo "stage auh-check-21 :: $(wc -c </var/tmp/a1/release-3660)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'release-3660'
+  DNSTransaction:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a1
+      - run:
+          name: Mixdown notification
+          command: |
+            mkdir -p /var/tmp/a1
+            { set +o pipefail 2>/dev/null; printf 'disk\t99\ndawn\t92\nwinter\t58\ngroceries\t56\n' > '/tmp/BACKUP_CAKE_LIBRARY_v3.csv' && cut -f1 '/tmp/BACKUP_CAKE_LIBRARY_v3.csv'; true ; } > /var/tmp/a1/md5_f8fc77fa830601f
+            echo "stage all-greens :: $(wc -c </var/tmp/a1/md5_f8fc77fa830601f)"
+      - persist_to_workspace:
+          root: /var/tmp/a1
+          paths:
+            - 'md5_f8fc77fa830601f'
+workflows:
+  build:
+    jobs:
+      - loop58
+      - sys_ReceiveWake:
+          requires:
+            - loop58
+      - zed-run:
+          requires:
+            - sys_ReceiveWake
+      - krueththessio:
+          requires:
+            - sys_ReceiveWake
+      - table-2021-w04:
+          requires:
+            - krueththessio
+      - t-old:
+          requires:
+            - table-2021-w04
+      - trg_REDO_REMOVE:
+          requires:
+            - table-2021-w04
+      - panWorkerRequest:
+          requires:
+            - trg_REDO_REMOVE
+      - Launch_Staging3:
+          requires:
+            - panWorkerRequest
+      - ThreadResourceProvider:
+          requires:
+            - panWorkerRequest
+      - ja_Hant_IL:
+          requires:
+            - ThreadResourceProvider
+      - APP-28:
+          requires:
+            - ja_Hant_IL
+      - m15c38:
+          requires:
+            - ja_Hant_IL
+      - Service-Tag:
+          requires:
+            - m15c38
+      - foxtrot-8:
+          requires:
+            - Service-Tag
+      - PWD_RANDOM:
+          requires:
+            - Service-Tag
+      - lua-v29:
+          requires:
+            - PWD_RANDOM
+      - bob-run:
+          requires:
+            - lua-v29
+      - eg:
+          requires:
+            - lua-v29
+      - revert__Circle:
+          requires:
+            - eg
+      - biuld-32:
+          requires:
+            - revert__Circle
+      - RANK_CLIENT_ENUM:
+          requires:
+            - revert__Circle
+      - FORM:
+          requires:
+            - RANK_CLIENT_ENUM
+      - VERIFY_PROD:
+          requires:
+            - FORM
+      - choose-unless:
+          requires:
+            - FORM
+      - NamedFakeArticleElement:
+          requires:
+            - choose-unless
+      - refactor-9952:
+          requires:
+            - NamedFakeArticleElement
+      - tl_SK:
+          requires:
+            - NamedFakeArticleElement
+      - alice-sandbox-chunk:
+          requires:
+            - tl_SK
+      - hyperion:
+          requires:
+            - alice-sandbox-chunk
+      - UXCW-2832-warning:
+          requires:
+            - alice-sandbox-chunk
+      - flags_disconnect:
+          requires:
+            - UXCW-2832-warning
+      - green-light:
+          requires:
+            - flags_disconnect
+      - j1
+      - MULTI_COUNTER:
+          requires:
+            - j1
+      - ruby3-vet:
+          requires:
+            - MULTI_COUNTER
+      - f0rk:
+          requires:
+            - MULTI_COUNTER
+      - flop-zag:
+          requires:
+            - f0rk
+      - anothr-run:
+          requires:
+            - flop-zag
+      - Close-TensorProperty:
+          requires:
+            - flop-zag
+      - mk7:
+          requires:
+            - Close-TensorProperty
+      - check-full-release-candidate:
+          requires:
+            - mk7
+      - Zyp23dNJ:
+          requires:
+            - mk7
+      - taco:
+          requires:
+            - Zyp23dNJ
+      - INIT_PROD:
+          requires:
+            - taco
+      - text_platinum:
+          requires:
+            - taco
+      - as_name:
+          requires:
+            - text_platinum
+      - kilo:
+          requires:
+            - as_name
+      - DebuffWeight:
+          requires:
+            - as_name
+      - PUBLIC_CELL:
+          requires:
+            - DebuffWeight
+      - tango:
+          requires:
+            - PUBLIC_CELL
+      - hi-LT-1:
+          requires:
+            - PUBLIC_CELL
+      - unmountAddressUTF8:
+          requires:
+            - hi-LT-1
+      - rm-webhook-glitch:
+          requires:
+            - unmountAddressUTF8
+      - haiku-maple:
+          requires:
+            - unmountAddressUTF8
+      - route_1998q4:
+          requires:
+            - haiku-maple
+      - nightly-v7:
+          requires:
+            - route_1998q4
+      - ddj
+      - save_writer_height:
+          requires:
+            - ddj
+      - tweak-webhook-bug:
+          requires:
+            - save_writer_height
+      - kind_search_union:
+          requires:
+            - save_writer_height
+      - armor-trait-stale-rollback:
+          requires:
+            - kind_search_union
+      - CORE-354:
+          requires:
+            - armor-trait-stale-rollback
+      - yurfliashslaishpy:
+          requires:
+            - armor-trait-stale-rollback
+      - finalInt:
+          requires:
+            - yurfliashslaishpy
+      - rl:
+          requires:
+            - finalInt
+      - Outer:
+          requires:
+            - finalInt
+      - flattenPathSegmentData:
+          requires:
+            - Outer
+      - victor-2:
+          requires:
+            - flattenPathSegmentData
+      - sha-ddbd2926f78:
+          requires:
+            - flattenPathSegmentData
+      - TextureKind:
+          requires:
+            - sha-ddbd2926f78
+      - shippit:
+          requires:
+            - TextureKind
+      - hello:
+          requires:
+            - TextureKind
+      - QNIOC-76226b:
+          requires:
+            - hello
+      - Validate_Prod2:
+          requires:
+            - QNIOC-76226b
+      - p_CART_ARG:
+          requires:
+            - QNIOC-76226b
+      - cntObj:
+          requires:
+            - p_CART_ARG
+      - lets-go:
+          requires:
+            - cntObj
+      - blendclamp:
+          requires:
+            - cntObj
+      - entry_2786_detach:
+          requires:
+            - blendclamp
+      - beta-v6:
+          requires:
+            - entry_2786_detach
+      - NumPlanetNarrowFrameBrush:
+          requires:
+            - entry_2786_detach
+      - rgt-089827:
+          requires:
+            - NumPlanetNarrowFrameBrush
+      - q3-rev:
+          requires:
+            - rgt-089827
+      - block--green:
+          requires:
+            - rgt-089827
+      - zone-length:
+          requires:
+            - block--green
+      - auh-check-21:
+          requires:
+            - zone-length
+      - burgundy2:
+          requires:
+            - zone-length
+      - DNSTransaction:
+          requires:
+            - burgundy2
+      - all-greens:
+          requires:
+            - DNSTransaction
